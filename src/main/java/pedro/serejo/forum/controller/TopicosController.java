@@ -34,7 +34,7 @@ public class TopicosController {
 		List<Topico> topicos = (curso == null) ? topicos = topicoRep.findAll() : topicoRep.findByCursoNome(curso); 
 		
 		return TopicoDto.converter(topicos);
-	}a
+	}
 	
 	@PostMapping
 	public ResponseEntity<TopicoDto> cadastrar(@Valid TopicoForm topicoForm, UriComponentsBuilder uriBuilder) {
