@@ -1,6 +1,5 @@
 package pedro.serejo.forum.controller.form;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import pedro.serejo.forum.constraints.CursoConstraint;
@@ -9,8 +8,9 @@ import pedro.serejo.forum.repository.CursoRepository;
 
 public class TopicoForm {
 	
+	@Size(min = 5)
 	String title;
-	
+	@Size(min = 5)
 	String mensagem;
 	@CursoConstraint
 	String curso;

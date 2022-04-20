@@ -14,8 +14,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = CursoValidator.class)
 @Documented
 public @interface CursoConstraint {
-	String message() default "Curso não encontrado na base de dados" +
-            " found: ${validatedValue}";
+	String message() default "Curso ${validatedValue} não encontrado na base de dados";
 	
 	Class<?>[] groups() default {};
 
