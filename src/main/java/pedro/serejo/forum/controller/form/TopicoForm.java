@@ -50,6 +50,8 @@ public class TopicoForm {
 		this.mensagem = mensagem;
 		this.curso = curso;
 	}
+	
+
 
 	@Override
 	public String toString() {
@@ -60,5 +62,7 @@ public class TopicoForm {
 
 		return new Topico(title, mensagem, cursoRepository.findByNome(curso));
 	}
+
+
 
 }

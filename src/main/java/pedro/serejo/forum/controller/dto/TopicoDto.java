@@ -1,8 +1,8 @@
 package pedro.serejo.forum.controller.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import pedro.serejo.forum.model.Topico;
 
@@ -36,8 +36,8 @@ public class TopicoDto {
 		this.mensagem = topico.getMensagem();
 		this.dataCriacao = topico.getDataCriacao();
 	}
-	public static List<TopicoDto> converter(List<Topico> asList) {
-		return asList.stream().map(TopicoDto::new).collect(Collectors.toList());
+	public static Page<TopicoDto> converter(Page<Topico> page) {
+		return page.map(TopicoDto::new);
 		
 	}
 	

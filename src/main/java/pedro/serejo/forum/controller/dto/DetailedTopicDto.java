@@ -13,19 +13,26 @@ public class DetailedTopicDto {
 	private String title;
 	private String message;
 	private LocalDateTime creationDate;
-	private String autor;
+	
 	private StatusTopico status;
 	private List<RespostaDto> respostas;
+	private String curso;
 	
 	public DetailedTopicDto(Topico topico) {
 		this.id = topico.getId();
 		this.title = topico.getTitulo();
 		this.message = topico.getMensagem();
 		this.creationDate = topico.getDataCriacao();
-		this.autor = topico.getAutor().getNome();
+		
 		this.status = topico.getStatus();
-		this.respostas = topico.getRespostas().stream().map(RespostaDto::new).collect(Collectors.toList());;
+		this.respostas = topico.getRespostas().stream().map(RespostaDto::new).collect(Collectors.toList());
+		this.curso = topico.getCurso().getNome();
 	}
+
+	public String getCurso() {
+		return curso;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -43,9 +50,7 @@ public class DetailedTopicDto {
 		return creationDate;
 	}
 
-	public String getAutor() {
-		return autor;
-	}
+
 
 	public StatusTopico getStatus() {
 		return status;
