@@ -29,14 +29,14 @@ public class LoginController {
 	public ResponseEntity<TokenDto> authenticate(@RequestBody LoginForm form) {
 		
 		UsernamePasswordAuthenticationToken usernamePasswordToken = form.toAuthToken();
-//		try {
+		try {
 			Authentication authentication = authManager.authenticate(usernamePasswordToken);
 			String jwtToken = tokenService.generateToken(authentication);
 			return ResponseEntity.ok(new TokenDto(jwtToken, "Bearer"));
 			
-//		} catch (AuthenticationException e) {
-//			return ResponseEntity.badRequest().build();
-//		}
+		} catch (AuthenticationException e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 }

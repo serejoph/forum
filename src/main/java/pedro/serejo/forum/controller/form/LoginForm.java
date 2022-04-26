@@ -1,6 +1,8 @@
 package pedro.serejo.forum.controller.form;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class LoginForm {
 
@@ -23,6 +25,5 @@ public class LoginForm {
 	public UsernamePasswordAuthenticationToken toAuthToken() {
 		return new UsernamePasswordAuthenticationToken(email, password);
 	}
-	
-	
+
 }
