@@ -3,6 +3,8 @@ package pedro.serejo.forum.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +19,7 @@ import pedro.serejo.forum.repository.UserRepository;
 
 @EnableWebSecurity
 @Configuration
+@Profile(value = {"prod", "test"})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -42,17 +45,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/auth").permitAll().anyRequest().authenticated().and().csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.addFilterBefore(new AuthTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class)
-				;
+		http.authorizeRequests().antMatchers("/auth").permitAll()
+		.antMatchers(HttpMethod.GET, "/topicos").permitAll()
+		.antMatchers("/swagger-ui/**").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/topicos/?*").hasRole("admin")
+		.anyRequest().authenticated()
+		.and().csrf().disable().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().addFilterBefore(
+						new AuthTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
 
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(web);
+		web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**",
+				"/swagger-resources/**");
 	}
 
 }
