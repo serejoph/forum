@@ -13,6 +13,8 @@ public class DetailedTopicDto {
 	private String title;
 	private String message;
 	private LocalDateTime creationDate;
+
+	
 	
 	private StatusTopico status;
 	private List<RespostaDto> respostas;
@@ -27,6 +29,8 @@ public class DetailedTopicDto {
 		this.status = topico.getStatus();
 		this.respostas = topico.getRespostas().stream().map(RespostaDto::new).collect(Collectors.toList());
 		this.curso = topico.getCurso().getNome();
+		
+		
 	}
 
 	public String getCurso() {
@@ -60,7 +64,7 @@ public class DetailedTopicDto {
 		return respostas;
 	}
 
-	
+
 	
 	
 	
